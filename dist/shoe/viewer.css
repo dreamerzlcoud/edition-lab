@@ -1,0 +1,78 @@
+.shoe-stage {
+  position: relative;
+  align-self: center;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1.64;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid #b4c0e3;
+  border-radius: 9px;
+  color: #18234b;
+  background: radial-gradient(ellipse at 37% 0, #e7edff 0, #d2dbf5 44%, #b9c6e9 100%);
+}
+.shoe-stage .shoe-canvas {
+  position: absolute;
+  inset: 0 0 34px;
+  display: grid;
+  place-items: center;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline-offset: -4px;
+}
+.shoe-stage .shoe-canvas:focus-visible, .shoe-stage .shoe-toggle:focus-visible {
+  outline: 3px solid #233fae;
+}
+.shoe-stage .shoe-canvas:active { cursor: grabbing; }
+.shoe-stage .shoe-frame {
+  width: 100%;
+  aspect-ratio: 800/442;
+  background: url("poster.webp") center/100% 100% no-repeat;
+  pointer-events: none;
+}
+.shoe-stage .shoe-tools {
+  position: absolute;
+  bottom: 7px;
+  left: clamp(9px, 2.5%, 17px);
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.shoe-stage .shoe-caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 13px/1.2 "Instrument Sans", Arial, sans-serif;
+}
+.shoe-stage .shoe-caption strong {
+  font: 700 15px/1 "IBM Plex Mono", Consolas, monospace;
+}
+.shoe-stage .shoe-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 81px;
+  min-height: 36px;
+  padding: 5px 12px;
+  border: 1px solid #7688b6;
+  border-radius: 18px;
+  color: #192950;
+  background: #eff3ff;
+  font: 600 14px/1.2 "Instrument Sans", Arial, sans-serif;
+  cursor: pointer;
+}
+.shoe-stage .shoe-toggle:hover { background: white; }
+.shoe-stage .shoe-toggle-icon { font-size: 17px; line-height: 1; }
+@media (any-pointer: coarse) {
+  .shoe-stage .shoe-toggle { min-height: 40px; }
+}
+@media (max-width: 400px) {
+  .shoe-stage { aspect-ratio: 1.55; }
+  .shoe-stage .shoe-caption { gap: 6px; font-size: 12px; }
+}

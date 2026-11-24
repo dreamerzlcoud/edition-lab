@@ -1,0 +1,51 @@
+#challenge { --game-blue:#2b4ab8; --game-ink:#1b202a; color:var(--game-ink); margin-bottom:1rem; }
+#challenge [hidden] { display:none !important; }
+.decision-card { display:grid; grid-template-columns:minmax(0, .9fr) minmax(0, 1.15fr); border:1px solid #c7cace; border-radius:7px; overflow:hidden; background:#fff; }
+.decision-brief, .decision-play { padding:clamp(1.15rem, 2.5vw, 2rem); min-width:0; }
+.decision-label { margin:0 0 .85rem; color:var(--game-blue); font:600 .8rem/1.35 "IBM Plex Mono", Consolas, monospace; text-transform:uppercase; letter-spacing:.075em; }
+.decision-week-label { margin:0 0 .14rem; font-size:.9rem; color:#4d555c; }
+.decision-week { font-family:var(--serif,Georgia,serif); font-weight:400; font-size:clamp(1.7rem, 3vw, 2.55rem); line-height:1.12; letter-spacing:-.04em; }
+.decision-hints { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:1.15rem 0 .5rem; border-top:1px solid #d8d9d4; padding-top:.8rem; }
+.decision-hints strong { display:block; font-size:clamp(1.35rem, 2vw, 1.8rem); line-height:1.2; font-variant-numeric:tabular-nums; letter-spacing:-.045em; font-weight:620; }
+.decision-model { display:flex; align-items:center; gap:.4rem; font-size:.875rem; color:#434950; margin-bottom:.22rem; }
+.decision-model::before { content:""; width:1.1rem; flex:0 0 1.1rem; }
+.decision-mean::before { border-top:2px dashed #616b85; }
+.decision-reg::before { border-top:2px solid #be4a26; }
+.decision-footnote { margin:0; color:#52585d; font-size:.81rem; line-height:1.45; }
+.decision-play { display:flex; align-items:center; background:#edf0fa; border-left:1px solid #c7cace; }
+.decision-play > * { width:100%; }
+.decision-play h3 { font:400 clamp(1.6rem, 2.9vw, 2.5rem)/1.1 var(--serif,Georgia,serif); letter-spacing:-.04em; text-wrap:balance; }
+.decision-play form > p { margin:.55rem 0 1.4rem; color:#4b535e; max-width:36ch; }
+.decision-control { display:flex; align-items:stretch; flex-wrap:wrap; gap:.65rem; }
+.decision-number { display:flex; align-items:center; gap:.2rem; min-height:2.85rem; width:clamp(8rem, 45%, 13rem); border:1px solid #8a94aa; border-radius:4px; background:white; padding:0 .65rem; }
+.decision-number input { width:100%; min-width:0; padding:.4rem 0; color:var(--game-ink); background:transparent; border:0; font:600 1.2rem/1.25 var(--sans,system-ui,sans-serif); font-variant-numeric:tabular-nums; }
+.decision-number input::placeholder { color:#767e88; font-weight:400; }
+.decision-number:focus-within { outline:2px solid var(--game-blue); outline-offset:2px; }
+.decision-number input:focus { outline:0; }
+.decision-number span { color:#5b626e; font-size:.85rem; }
+.decision-play button { background:var(--game-blue); color:#fff; border:1px solid var(--game-blue); border-radius:4px; padding:.65rem 1rem; min-height:2.85rem; font:600 .95rem/1.2 var(--sans,system-ui,sans-serif); cursor:pointer; }
+.decision-play button:hover { background:#1d378c; border-color:#1d378c; }
+.decision-bars { margin:.85rem 0; }
+.decision-bar-row { display:grid; grid-template-columns:5.8rem minmax(1rem,1fr) auto; gap:.55rem; align-items:center; margin:.28rem 0; font-size:.875rem; }
+.decision-track { height:.48rem; overflow:hidden; border-radius:2px; background:#d7dce8; }
+.decision-track i { display:block; height:100%; background:#272c35; }
+.decision-bar-row + .decision-bar-row i { background:var(--game-blue); }
+.decision-bar-row strong { min-width:3.2rem; font-variant-numeric:tabular-nums; text-align:right; overflow-wrap:anywhere; }
+.decision-errors { border-top:1px solid #cdd2df; margin-top:.75rem; padding-top:.65rem; }
+.decision-errors p { color:#434950; margin:0 0 .4rem; font-size:.875rem; }
+.decision-errors dl { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:0 0 .45rem; gap:.4rem; }
+.decision-errors dt { font-size:.82rem; color:#485362; }
+.decision-errors dd { margin:0; font-weight:650; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.decision-comparison { margin:0 0 .9rem; font-size:.94rem; color:#414851; max-width:55ch; }
+@media (max-width:680px) {
+  .decision-card { grid-template-columns:1fr; }
+  .decision-play { border-left:0; border-top:1px solid #c7cace; }
+  .decision-label { margin-bottom:.55rem; }
+  .decision-hints { margin-top:.8rem; padding-top:.55rem; }
+  .decision-play form > p { margin-bottom:.85rem; }
+  .decision-control { gap:.5rem; }
+}
+@media (prefers-reduced-motion:no-preference) {
+  .decision-result:not([hidden]) { animation:decision-reveal .18s ease-out; }
+  @keyframes decision-reveal { from { opacity:0; } to { opacity:1; } }
+}
