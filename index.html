@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f2">
+  <meta name="description" content="Compare two weekly forecasts on 99,956 sampled U.S. StockX sneaker resales and test a hypothetical stock plan.">
+  <title>Edition Lab — Sneaker resale &amp; the stock game</title>
+  <link rel="icon" href="mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="shoe/viewer.css">
+  <link rel="stylesheet" href="chart.css">
+  <link rel="stylesheet" href="challenge.css">
+  <script src="weekly.js" defer></script>
+  <script src="model.js" defer></script>
+  <script src="chart.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="challenge.js" defer></script>
+  <script src="shoe/viewer.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#forecasts">Skip to forecasts</a>
+  <header class="site-header"><div class="shell topbar">
+    <a href="#top" class="wordmark" aria-label="Edition Lab home"><img src="mark.svg" alt="" width="28" height="28">Edition Lab</a>
+    <nav aria-label="Main navigation"><a href="#forecasts">Forecasts</a><a href="#inventory">Stock game</a><a href="#method">Data</a></nav>
+  </div></header>
+  <main class="shell" id="top">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="intro">
+        <div class="eyebrow"><span class="small-rule"></span> U.S. sneaker resale</div>
+        <h1 id="page-title">How many<br> <em>pairs?</em></h1>
+        <p>Use real sneaker sales to make a buying call. Pick your stock, then see how the week played out.</p>
+        <div class="hero-actions"><a class="action-primary" href="#inventory">Play the stock game</a><a class="action-text" href="#forecasts">Explore forecasts</a></div>
+      </div>
+      <div id="shoe-stage" class="shoe-stage"></div>
+    </section>
+    <div class="dataset-strip" aria-label="Study coverage">
+      <div class="source-cell"><span>Data source</span><a href="https://stockx.com/news/the-2019-data-contest/">StockX 2019 Data Contest</a></div>
+      <div><strong>99,956</strong><span>sampled sales</span></div>
+      <div><strong>75</strong><span>full weeks</span></div>
+      <div><strong>2017–19</strong><span>U.S. market</span></div>
+    </div>
+    <section class="section" id="forecasts" aria-labelledby="forecast-heading">
+      <div class="section-heading">
+        <div><h2 id="forecast-heading">Weekly forecast</h2><p>Two models, tested one week ahead over the final 12 weeks.</p></div>
+        <div class="select-wrap"><label for="collection">Collection</label><select id="collection"><option value="all">Both collections</option><option value="yeezy">Yeezy 350</option><option value="offwhite">Off-White × Nike</option></select></div>
+      </div>
+      <div class="analysis-grid">
+        <article class="plot-panel panel">
+          <div id="chart" class="chart"></div>
+          <details class="table-section"><summary>View weekly figures</summary>
+            <div class="table-scroll"><table><caption class="sr-only">Weekly sample counts and one-week-ahead forecasts. Forecasts rounded to one decimal.</caption><thead><tr><th scope="col">Week of</th><th scope="col">Actual</th><th scope="col">4-week mean</th><th scope="col">Regression</th></tr></thead><tbody id="week-table"></tbody></table></div>
+          </details>
+        </article>
+        <aside class="score-panel" aria-labelledby="error-heading">
+          <div class="eyebrow">Average weekly error</div>
+          <h3 id="error-heading"><span id="score-change">—</span><span class="score-unit">%</span></h3>
+          <p id="score-note" aria-live="polite"></p>
+          <div class="score"><span><i class="key mean"></i>4-week mean</span><strong id="mean-mae">—</strong></div>
+          <div class="score"><span><i class="key regression"></i>Regression</span><strong id="reg-mae">—</strong></div>
+          <div class="metric-caption">Mean absolute error · pairs per week</div>
+        </aside>
+      </div>
+      <div class="reading-note"><span aria-hidden="true" class="info">i</span><p><b>Why sales can dip.</b> A quiet week could mean fewer buyers or fewer pairs available. StockX only records completed trades.</p></div>
+    </section>
+    <section class="section" id="inventory" aria-labelledby="inventory-heading">
+      <div class="section-heading"><div><h2 id="inventory-heading">The stock game</h2><p>Two forecasts. One buying decision. Can you get closer?</p></div></div>
+      <div id="challenge"></div>
+      <details class="sandbox"><summary>Explore the inventory simulator</summary>
+      <div class="inventory-grid panel">
+        <div class="inventory-inputs">
+          <div class="sim-top"><div><span class="field-label">Collection</span><b id="sim-collection"></b></div><div class="select-wrap"><label for="week">Week starting</label><select id="week"></select></div></div>
+          <label class="range-title" for="quantity"><span>Starting stock</span><strong><output id="stock-label" for="quantity"></output> <small>pairs</small></strong></label>
+          <input type="range" id="quantity" min="0" max="6000" step="1" value="0">
+          <div class="range-ends"><span>0</span><span id="range-max"></span></div>
+          <div class="presets"><button id="use-mean" type="button">Use 4-week mean</button><button id="use-reg" type="button">Use regression</button></div>
+        </div>
+        <div class="outcomes"><div class="sim-actual">Observed that week <strong id="week-actual"></strong></div><div class="result-values" aria-live="polite" aria-atomic="true">
+          <div><span>Pairs sold</span><strong id="sold"></strong></div>
+          <div><span>Pairs left over</span><strong class="blue" id="leftover"></strong></div>
+          <div><span>Sales above stock</span><strong id="unfilled"></strong></div>
+        </div><p>One pair per sampled sale. No restocking or carryover.</p></div>
+      </div>
+      </details>
+    </section>
+    <section class="section methods" id="method" aria-labelledby="method-heading">
+      <div class="section-heading"><h2 id="method-heading">Data &amp; method</h2></div>
+      <details><summary>Where the sales came from</summary><div><p>StockX sampled a fixed, undisclosed share of U.S. Off-White × Nike and Yeezy 350 resales per colorway and day. Of 99,956 trades from September 2017 to February 2019, 98,705 fall in 75 complete Monday–Sunday weeks.</p><p><a href="https://stockx.com/news/the-2019-data-contest/">StockX data release</a> · <a href="https://s3.amazonaws.com/stockx-sneaker-analysis/wp-content/uploads/2019/02/StockX-Data-Contest-2019-3.xlsx">Original workbook</a> · <a href="weekly-counts.csv" download>Weekly counts (CSV)</a></p></div></details>
+      <details><summary>How we tested the models</summary><div><p>After 63 weeks of history, each model predicts the next week using earlier sales. The baseline averages the last four weeks. The regression fits an intercept, last week’s sales and the four-week mean, then clips negative predictions to zero. Both update weekly.</p><p>The chart compares predictions with the following 12 actual counts. Mean absolute error averages the size of those misses before rounding.</p></div></details>
+      <details><summary>How the game works</summary><div><p>The game draws from 33 earlier weeks. Each forecast uses only sales known before its round. Stock is hypothetical, with one interchangeable pair per sampled sale and no replenishment. The gap between your stock and observed sales determines the result.</p><p>StockX provides no factory output, stockout records or counts of shoppers who could not buy. These quantities illustrate decisions at the scale of the sample.</p></div></details>
+    </section>
+  </main>
+  <footer><div class="shell"><span>Edition Lab</span><span>Independent fashion analytics study &nbsp;·&nbsp; <a href="shoe/credits.html">Shoe credit</a></span></div></footer>
+  <noscript><p>This interactive forecast requires JavaScript. <a href="weekly-counts.csv">Download the weekly counts.</a></p></noscript>
+</body>
+</html>
